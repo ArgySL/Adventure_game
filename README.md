@@ -1,4 +1,4 @@
-# Adventure Game
+# Adventure Escape
 
 Welcome to Adventure Escape!
 
