@@ -45,7 +45,7 @@ def act_1():
         action1 = input("Press 'l' to turn your spoon into a lockpick, or press 'w' to wait...")
         if action1 == 'w':
             print("You waited so long that eventually the guards sobered, came back to the prison and you missed your best opportunity to escape! Game Over!")
-            act_1()
+            main_game()
         elif action1 == 'l':
              inventory.append('lockpick')
              print("You obtained a lockpick! Your inventory now includes :" , inventory[0])
@@ -114,7 +114,7 @@ def act_3():
             else:
                 sys.exit()
         if action4 == 'a':
-            print("You make some noice by knocking the door you're hiding behind. The guard is lured to your position to check the noise out... You try to knock him out as soon as he turns, but he smacks you in the face! (-10 Health). You swiftly recover and sweep his feet with a kick then choke him and knock him out!")
+            print("You make some noise by knocking the door you're hiding behind. The guard is lured to your position to check the noise out... You try to knock him out as soon as he turns, but he smacks you in the face! (-10 Health). You swiftly recover and sweep his feet with a kick then choke him and knock him out!")
             input('...')
             health =- 10
             action6 = input("The noise thankfully did not alert the guard at the other side of the room. Is he asleep or under the effects of intoxication? Regardless, you have more choices now... Press 'e' to examine the crumbling wall, press 's' to sneak past the guard to the next area, or press 'w' to wait. ")
@@ -150,6 +150,7 @@ def bonus_act():
             if status == 'y':
                 print(f"You inventory consists of: {inventory}, your health is: {health}, and your gold is: {gold}")
                 input("...")
+            
             print("By the time you're finished looting, you head back to the barracks, only to discover that the other guard is lying on the flour, with a small lake of puke next to him. He passed out from drinking too much, the fool... You head outside towards the next area...")
             input('...')
     except SyntaxError:
@@ -169,7 +170,7 @@ def act_4():
     print(" [_____G   G_________]")
     print("          So        ")
     input('...')
-    action8 = input("Everyone is in a festive mood; the  the atmosphere is exhilarating, but not for you... You have to get away! (Press 'w' to walk towards the exit, 'c' to chat with the nearest patron or servant, 'l' to look around the tables...) ")
+    action8 = input("Everyone is in a festive mood; the atmosphere is exhilarating, but not for you... You have to get away! (Press 'w' to walk towards the exit, 'c' to chat with the nearest patron or servant, 'l' to look around the tables...) ")
     try:
          if action8 == 'w':
               print("You try to shuffle through the patrons, while trying your best to appear inconspicuous. You can feel the sneering gaze of some of them, as well as the servants', but you do not care. You reach the gate and walk out like no one's business! Apparently the guards were instructed to thoroughly check everyone who walks in, but not people who walk out... ")
@@ -177,11 +178,10 @@ def act_4():
     except SyntaxError:
          print("You inputted an incorrect command!")    
 
-    
 ## Act 5, Streets
 def act_5():
     print("Act 5, Streets")
-    print("After you finally make it past the gate of the Royal Garden, you find yourself in the strees surrounding the castle. In order to feel safe, you want to get to your hideout...")
+    print("After you finally make it past the gate of the Royal Garden, you find yourself in the streets surrounding the castle. In order to feel safe, you want to get to your hideout...")
     input('...')
     print("You cannot clearly make out what's going on in the streets, what with all the lights and festivities going on so what you can figure out is listed below:")
     print("Legend: P = Passerby, S = Stall, H = Hideout, * = You!")
