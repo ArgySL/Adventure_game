@@ -16,8 +16,7 @@ def main_game():
          trap_damage = (10,20,30)
          return random.sample(trap_damage, 1)
 
-    '''
-    
+    ''' 
 ## The game progression is pretty linear, as you might read in the README file. The game is presented via a series of prints, and the player has to react to what appears before them.     
     
 ## Act 0, Prologue
@@ -43,23 +42,25 @@ def act_1():
     print(" |[ ]     [f]|")
     print(" [__  _S_____]")
     try:
-        action1 = input("Press enter turn your spoon into a lockpick, or press 'w' to wait...")
+        action1 = input("Press 'l' to turn your spoon into a lockpick, or press 'w' to wait...")
         if action1 == 'w':
             print("You waited so long that eventually the guards sobered, came back to the prison and you missed your best opportunity to escape! Game Over!")
-            act_1()           
+            act_1()
+        elif action1 == 'l':
+             inventory.append('lockpick')
+             print("You obtained a lockpick! Your inventory now includes :" , inventory[0])
     except SyntaxError:
             print("You inputted an incorrect command!")
-    inventory.append('lockpick')
-    print("You obtained a lockpick! Your inventory now includes :" , inventory[0])
+    
     try:
-        action2 = input("You use your masterfully-crafted lockpick to unlock your cell and get out. Would you like to explore the prison or leave? (Press enter to leave, press 'e' to explore! )")
+        action2 = input("You use your masterfully-crafted lockpick to unlock your cell and get out. Would you like to explore the prison or leave? (Press 'l' to leave, press 'e' to explore! )")
         if action2 == 'e':
              inventory.append('bread')
              print("You picked up a loaf of bread when exploring from the south-eastern cell! Your inventory now includes: ", inventory)
              input("...")
-             
-        else:
+        elif action2 == 'l':
              print("You exit the prison and head for the dungeon!")
+             input("...")
     except SyntaxError:
             print("You inputted an incorrent command!")
 ## Act 2, Dungeon
@@ -67,7 +68,7 @@ def act_1():
 def act_2():
     print("ACT 2, Dungeon")
     print("After making it to the dungeon, you take your time and hide in corner where the dim light of the torches doesn't reach. You scout out the area and make a crude mental image of it in your brain: ")
-    print("Legend:")
+    print("Legend: g = Guard, f = Food, t = Treasure(!), * = You! ")
     print(" [_  *N_____]")
     print(" |[]      []|")
     print("W|[]      []|E")
@@ -75,7 +76,7 @@ def act_2():
     print(" [_   S_____]")
     input("...")
     try:
-        action3 = input("There are more prison cells in the dungeon, plus a guard keeping watch. That guard is guarding a small treasure chest. The guard appears to be cold out; there is a heavy smell of alcohol in the air. What will you do? (Press Enter to sneak past the guard, or press S to steal the treasure!)")
+        action3 = input("There are more prison cells in the dungeon, plus a guard keeping watch. That guard is guarding a small treasure chest. The guard appears to be cold out; there is a heavy smell of alcohol in the air. What will you do? (Press 'N' to sneak past the guard, or press 'S' to steal the treasure!)")
         if action3 == 's':
             inventory.append('Bronze Volgar Figurine')
             gold =+ 20
@@ -83,17 +84,12 @@ def act_2():
             print("With a slight glee formed on your face, you sneak past the guard and head towards the barracks!")
             input('...')
             return gold
-        else:
+        elif action3 == 'n':
             print("You decided not to risk it and sneak past the guard towards the next area towards the south, the barracks!")
             gold =+ 0
             return gold
     except SyntaxError:
             print("You inputted an incorrect command!")
-    
-    status = input("Would you like to view your status? (Inventory, gold, health points) (y/n)")
-    if status == 'y':
-        print(f"You inventory consists of: {inventory}, your health is: {health}, and your gold is: {gold}")
-        input("...")
     return gold
 
 ## Act 3, Barracks
@@ -119,6 +115,7 @@ def act_3():
                 sys.exit()
         if action4 == 'a':
             print("You make some noice by knocking the door you're hiding behind. The guard is lured to your position to check the noise out... You try to knock him out as soon as he turns, but he smacks you in the face! (-10 Health). You swiftly recover and sweep his feet with a kick then choke him and knock him out!")
+            input('...')
             health =- 10
             action6 = input("The noise thankfully did not alert the guard at the other side of the room. Is he asleep or under the effects of intoxication? Regardless, you have more choices now... Press 'e' to examine the crumbling wall, press 's' to sneak past the guard to the next area, or press 'w' to wait. ")
             if action6 == 'e':
@@ -128,7 +125,8 @@ def act_3():
             gold = 0
             return gold
     except SyntaxError:
-         print("You inputted an incorrect command!")        
+         print("You inputted an incorrect command!")
+
 def bonus_act():
     print("Bonus Act, Treasury!")
     print("You try to examine the crumbling wall, knock on it, feel it with your hands; eventually part of the wall crumbles and you take a sneak peak inside... ")
@@ -145,18 +143,24 @@ def bonus_act():
     try:
          if action7 == 'l':
             print("You open all the chests one by one with impunity, greed oozing from your eyes! You are simply not able to carry everything on your own, but you pocket the most valuable articles: ")
-            gold =+ 200, inventory.extend(["Ruby","Sapphire","Diamond","Emerald","Pile of Zircons"])
+            gold =+ 200
+            inventory.extend(["Ruby","Sapphire","Diamond","Emerald","Pile of Zircons"])
+            print("You obtained 200 gold, many valuable gems!")
+            status = input("Would you like to view your status? (Inventory, gold, health points) (y/n)")
+            if status == 'y':
+                print(f"You inventory consists of: {inventory}, your health is: {health}, and your gold is: {gold}")
+                input("...")
             print("By the time you're finished looting, you head back to the barracks, only to discover that the other guard is lying on the flour, with a small lake of puke next to him. He passed out from drinking too much, the fool... You head outside towards the next area...")
+            input('...')
     except SyntaxError:
          print("You inputted an incorrect command!")
-    act_4()
-   
-        
+    return gold, health
+         
 ## Act 4, Garden
 def act_4():
     print("Act 4, Royal Garden")
     input('...')
-    print("After exiting the barracks, you find yourself in a spacious scenery of green, dazzling lights, chatter, laughter and overal chaos. You realise you are in the Royal Garden and the festivities  ")
+    print("After exiting the barracks, you find yourself in a spacious scenery of green, dazzling lights, chatter, laughter and overal chaos. You realise you are in the Royal Garden and the festivities are going wild.")
     print("Legend: , t = Table, G = Guard, P = Patron, S = Servant, * = You!")
     print(" [___ *No_____]")
     print(" [P   S  P(t) |___")
@@ -184,7 +188,7 @@ def act_5():
     print(" [___ *No____]")
     print(" [S  P   P   ]")
     print(" [SP    P PS ]")
-    print("We[ P  P  P S]Ea")
+    print("We[ P   P P S]Ea")
     print(" [ P  P  P S ]")
     print(" [P  P   P   ]")
     print(" [__  So____H]")
